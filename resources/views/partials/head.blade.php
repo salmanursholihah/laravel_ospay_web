@@ -1,0 +1,61 @@
+{{-- Sistem desain bersama. Tailwind via CDN (tanpa build step); untuk produksi pindahkan ke Vite + Tailwind. --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+                colors: {
+                    brand: {
+                        50: '#ecfdf6', 100: '#d1fae8', 200: '#a4f3d2', 300: '#6ce5b8', 400: '#34cf99',
+                        500: '#12b382', 600: '#0a9069', 700: '#0a7256', 800: '#0c5b46', 900: '#0b4a3a',
+                    },
+                    ink: { 700: '#123a32', 800: '#0d2d27', 900: '#08211c' },
+                    paper: '#f4f6f5',
+                },
+                boxShadow: {
+                    card: '0 1px 2px rgb(8 33 28 / .04), 0 4px 16px -8px rgb(8 33 28 / .08)',
+                },
+            },
+        },
+    };
+</script>
+<style type="text/tailwindcss">
+    @layer base {
+        html { font-feature-settings: 'tnum' 1, 'cv11' 1; }
+        body { @apply bg-paper text-slate-800 antialiased; }
+        :focus-visible { @apply outline-2 outline-offset-2 outline-brand-600; }
+    }
+    @layer components {
+        .card { @apply bg-white rounded-2xl border border-slate-200/80 shadow-card; }
+        .card-pad { @apply p-5 sm:p-6; }
+
+        .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed; }
+        .btn-primary { @apply btn bg-brand-700 text-white hover:bg-brand-800 shadow-sm; }
+        .btn-secondary { @apply btn bg-white text-slate-700 border border-slate-300 hover:bg-slate-50; }
+        .btn-danger { @apply btn bg-white text-red-700 border border-red-200 hover:bg-red-50; }
+        .btn-sm { @apply px-3 py-1.5 text-xs rounded-lg; }
+
+        .field { @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-600/15; }
+        .field-sm { @apply rounded-lg px-2.5 py-1.5; }
+        .label { @apply block text-sm font-medium text-slate-700 mb-1.5; }
+
+        .table-wrap { @apply card overflow-x-auto; }
+        .table { @apply w-full text-sm; }
+        .table thead th { @apply bg-slate-50/80 text-left text-xs font-semibold text-slate-500 px-4 py-3 whitespace-nowrap border-b border-slate-200; }
+        .table tbody td { @apply px-4 py-3.5 align-middle; }
+        .table tbody tr { @apply border-b border-slate-100 last:border-0 hover:bg-slate-50/60; }
+        .table .empty { @apply px-4 py-12 text-center text-slate-500; }
+
+        .stat-label { @apply text-sm text-slate-500; }
+        .stat-value { @apply mt-1.5 text-2xl font-bold tracking-tight text-slate-900; }
+
+        .link { @apply font-semibold text-brand-700 hover:text-brand-800 hover:underline underline-offset-4; }
+
+        .dl-row { @apply flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-5 py-3.5; }
+        .dl-row dt, .dl-row .dl-key { @apply sm:w-40 shrink-0 text-slate-500; }
+    }
+</style>
