@@ -51,7 +51,7 @@
 {{-- Sidebar (desktop) --}}
 <aside class="hidden lg:flex fixed inset-y-0 left-0 w-64 flex-col bg-ink-900 text-slate-300">
     <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-6 h-16 border-b border-white/5">
-        <span class="grid place-items-center size-9 rounded-xl bg-brand-500 text-ink-900 font-extrabold">{{ mb_strtoupper(mb_substr(config('app.name'), 0, 1)) }}</span>
+        <span class="grid place-items-center size-9 rounded-xl bg-brand-500 text-white font-extrabold">{{ mb_strtoupper(mb_substr(config('app.name'), 0, 1)) }}</span>
         <span class="text-white font-bold text-lg tracking-tight">{{ config('app.name') }}</span>
     </a>
 
@@ -60,8 +60,8 @@
             @php $active = request()->routeIs($pattern); @endphp
             <a href="{{ route($route) }}"
                @if ($active) aria-current="page" @endif
-               class="group flex items-center gap-3 rounded-xl px-3 py-2.5 font-medium transition-colors {{ $active ? 'bg-white/10 text-white' : 'hover:bg-white/5 hover:text-white' }}">
-                <svg class="size-5 shrink-0 {{ $active ? 'text-brand-400' : 'text-slate-500 group-hover:text-slate-300' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $icons[$icon] }}"/></svg>
+               class="group flex items-center gap-3 rounded-2xl px-3 py-2.5 font-medium transition-colors {{ $active ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/30' : 'hover:bg-white/5 hover:text-white' }}">
+                <svg class="size-5 shrink-0 {{ $active ? 'text-white' : 'text-blue-200/60 group-hover:text-blue-100' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $icons[$icon] }}"/></svg>
                 {{ $label }}
             </a>
         @endforeach
@@ -69,7 +69,7 @@
 
     <div class="border-t border-white/5 p-3">
         <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-white/5">
-            <span class="grid place-items-center size-9 rounded-full bg-brand-800 text-brand-100 text-sm font-bold">{{ $initial }}</span>
+            <span class="grid place-items-center size-9 rounded-full bg-brand-500 text-white text-sm font-bold">{{ $initial }}</span>
             <span class="min-w-0">
                 <span class="block truncate text-sm font-semibold text-white">{{ $u->name }}</span>
                 <span class="block text-xs text-slate-400 capitalize">{{ $u->role }}</span>
@@ -86,7 +86,7 @@
 <header class="lg:hidden sticky top-0 z-30 bg-ink-900 text-white">
     <div class="flex items-center justify-between px-4 h-14">
         <a href="{{ route('dashboard') }}" class="flex items-center gap-2 font-bold">
-            <span class="grid place-items-center size-8 rounded-lg bg-brand-500 text-ink-900 font-extrabold">{{ mb_strtoupper(mb_substr(config('app.name'), 0, 1)) }}</span>
+            <span class="grid place-items-center size-8 rounded-lg bg-brand-500 text-white font-extrabold">{{ mb_strtoupper(mb_substr(config('app.name'), 0, 1)) }}</span>
             {{ config('app.name') }}
         </a>
         <div class="flex items-center gap-3 text-sm">
@@ -97,12 +97,12 @@
     <nav class="flex gap-1 overflow-x-auto px-3 pb-2 text-sm">
         @foreach ($menu as [$label, $route, $pattern, $icon])
             <a href="{{ route($route) }}"
-               class="whitespace-nowrap rounded-full px-3.5 py-1.5 font-medium {{ request()->routeIs($pattern) ? 'bg-brand-500 text-ink-900' : 'text-slate-300 hover:bg-white/10' }}">{{ $label }}</a>
+               class="whitespace-nowrap rounded-full px-3.5 py-1.5 font-medium {{ request()->routeIs($pattern) ? 'bg-brand-500 text-white' : 'text-slate-300 hover:bg-white/10' }}">{{ $label }}</a>
         @endforeach
     </nav>
 </header>
 
-<main class="lg:pl-64">
+<main class="pb-24 lg:pb-0 lg:pl-64">
     <div class="mx-auto max-w-6xl px-4 sm:px-8 py-6 sm:py-10">
         @include('partials.flash')
 
@@ -111,6 +111,25 @@
         @yield('content')
     </div>
 </main>
+
+{{-- Bottom bar (layar kecil), 3 tab seperti navigasi mobile: Beranda, Riwayat, Akun --}}
+@php
+    $tabs = $u->isSuperAdmin()
+        ? [['Beranda', 'dashboard', 'dashboard', 'home'], ['Agen', 'admin.agents.index', 'admin.*', 'users'], ['Akun', 'profile.edit', 'profile.*', 'users']]
+        : [['Beranda', 'dashboard', 'dashboard', 'home'], ['Riwayat', 'transactions.index', 'transactions.*', 'receipt'], ['Akun', 'profile.edit', 'profile.*', 'users']];
+@endphp
+<nav class="lg:hidden fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur pb-[env(safe-area-inset-bottom)]" aria-label="Navigasi utama">
+    <div class="mx-auto grid max-w-md grid-cols-3">
+        @foreach ($tabs as [$label, $route, $pattern, $icon])
+            @php $on = request()->routeIs($pattern); @endphp
+            <a href="{{ route($route) }}" @if ($on) aria-current="page" @endif
+               class="flex flex-col items-center gap-1 py-2.5 text-xs font-semibold {{ $on ? 'text-brand-600' : 'text-slate-400' }}">
+                <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $icons[$icon] }}"/></svg>
+                {{ $label }}
+            </a>
+        @endforeach
+    </div>
+</nav>
 
 @stack('scripts')
 </body>

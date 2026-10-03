@@ -13,7 +13,7 @@
         <div class="pointer-events-none absolute -bottom-32 -left-16 size-96 rounded-full bg-brand-500/10 blur-3xl"></div>
 
         <div class="relative flex items-center gap-3">
-            <span class="grid place-items-center size-10 rounded-xl bg-brand-500 text-ink-900 font-extrabold text-lg">{{ mb_strtoupper(mb_substr(config('app.name'), 0, 1)) }}</span>
+            <span class="grid place-items-center size-10 rounded-xl bg-brand-500 text-white font-extrabold text-lg">{{ mb_strtoupper(mb_substr(config('app.name'), 0, 1)) }}</span>
             <span class="text-xl font-bold tracking-tight">{{ config('app.name') }}</span>
         </div>
 

@@ -22,7 +22,7 @@
 <header class="absolute inset-x-0 top-0 z-30">
     <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
         <a href="/" class="flex items-center gap-2.5 text-white">
-            <span class="grid size-9 place-items-center rounded-xl bg-brand-500 font-extrabold text-ink-900">{{ mb_strtoupper(mb_substr($app, 0, 1)) }}</span>
+            <span class="grid size-9 place-items-center rounded-xl bg-brand-500 font-extrabold text-white">{{ mb_strtoupper(mb_substr($app, 0, 1)) }}</span>
             <span class="text-lg font-bold tracking-tight">{{ $app }}</span>
         </a>
         <nav class="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
@@ -33,10 +33,10 @@
         </nav>
         <div class="flex items-center gap-2">
             @auth
-                <a href="{{ route('dashboard') }}" class="btn bg-brand-500 text-ink-900 hover:bg-brand-400">Dashboard</a>
+                <a href="{{ route('dashboard') }}" class="btn bg-brand-500 text-white hover:bg-brand-400">Dashboard</a>
             @else
                 <a href="{{ route('login') }}" class="btn hidden text-white hover:bg-white/10 sm:inline-flex">Masuk</a>
-                <a href="{{ route('register') }}" class="btn bg-brand-500 text-ink-900 hover:bg-brand-400">Daftar</a>
+                <a href="{{ route('register') }}" class="btn bg-brand-500 text-white hover:bg-brand-400">Daftar</a>
             @endauth
         </div>
     </div>
@@ -62,9 +62,9 @@
             </p>
             <div class="mt-9 flex flex-wrap gap-3">
                 @auth
-                    <a href="{{ route('transactions.create') }}" class="btn bg-brand-500 px-7 py-3.5 text-base text-ink-900 hover:bg-brand-400">Beli sekarang</a>
+                    <a href="{{ route('transactions.create') }}" class="btn bg-brand-500 px-7 py-3.5 text-base text-white hover:bg-brand-400">Beli sekarang</a>
                 @else
-                    <a href="{{ route('register') }}" class="btn bg-brand-500 px-7 py-3.5 text-base text-ink-900 hover:bg-brand-400">Daftar gratis</a>
+                    <a href="{{ route('register') }}" class="btn bg-brand-500 px-7 py-3.5 text-base text-white hover:bg-brand-400">Daftar gratis</a>
                     <a href="{{ route('register-agen') }}" class="btn border border-white/25 px-7 py-3.5 text-base text-white hover:bg-white/10">Jadi agen</a>
                 @endauth
             </div>
@@ -94,7 +94,7 @@
                 <div class="mt-3 rounded-xl bg-brand-700 py-3 text-center text-sm font-bold text-white">Beli sekarang</div>
             </div>
             <div class="floaty absolute -left-10 top-24 rounded-xl bg-white px-3.5 py-2.5 text-xs font-bold text-slate-800 shadow-xl" style="animation-delay:1s">✅ Pulsa masuk</div>
-            <div class="floaty absolute -right-6 bottom-20 rounded-xl bg-brand-500 px-3.5 py-2.5 text-xs font-bold text-ink-900 shadow-xl" style="animation-delay:2s">💰 Komisi agen masuk</div>
+            <div class="floaty absolute -right-6 bottom-20 rounded-xl bg-brand-500 px-3.5 py-2.5 text-xs font-bold text-white shadow-xl" style="animation-delay:2s">💰 Komisi agen masuk</div>
         </div>
     </div>
 </section>
@@ -155,7 +155,7 @@
             </div>
         </div>
         <div class="mt-10 flex flex-wrap items-center gap-4">
-            <a href="{{ route('register-agen') }}" class="btn bg-brand-500 px-7 py-3.5 text-base text-ink-900 hover:bg-brand-400">Daftar sebagai agen</a>
+            <a href="{{ route('register-agen') }}" class="btn bg-brand-500 px-7 py-3.5 text-base text-white hover:bg-brand-400">Daftar sebagai agen</a>
             <span class="text-sm text-slate-400">Akun agen aktif setelah disetujui admin.</span>
         </div>
     </div>

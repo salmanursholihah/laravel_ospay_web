@@ -10,14 +10,14 @@
                 fontFamily: { sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
                 colors: {
                     brand: {
-                        50: '#ecfdf6', 100: '#d1fae8', 200: '#a4f3d2', 300: '#6ce5b8', 400: '#34cf99',
-                        500: '#12b382', 600: '#0a9069', 700: '#0a7256', 800: '#0c5b46', 900: '#0b4a3a',
+                        50: '#eff5ff', 100: '#dbe8ff', 200: '#bcd4ff', 300: '#8db6ff', 400: '#5a93fa',
+                        500: '#2f6df0', 600: '#2459dc', 700: '#1d47b8', 800: '#1c3c92', 900: '#1b3374',
                     },
-                    ink: { 700: '#123a32', 800: '#0d2d27', 900: '#08211c' },
-                    paper: '#f4f6f5',
+                    ink: { 700: '#1f3f8f', 800: '#1a3482', 900: '#132a6b' },
+                    paper: '#f3f6fd',
                 },
                 boxShadow: {
-                    card: '0 1px 2px rgb(8 33 28 / .04), 0 4px 16px -8px rgb(8 33 28 / .08)',
+                    card: '0 1px 2px rgb(19 42 107 / .05), 0 8px 24px -12px rgb(36 89 220 / .18)',
                 },
             },
         },
@@ -27,19 +27,19 @@
     @layer base {
         html { font-feature-settings: 'tnum' 1, 'cv11' 1; }
         body { @apply bg-paper text-slate-800 antialiased; }
-        :focus-visible { @apply outline-2 outline-offset-2 outline-brand-600; }
+        :focus-visible { @apply outline-2 outline-offset-2 outline-brand-500; }
     }
     @layer components {
-        .card { @apply bg-white rounded-2xl border border-slate-200/80 shadow-card; }
+        .card { @apply bg-white rounded-3xl border border-slate-200/70 shadow-card; }
         .card-pad { @apply p-5 sm:p-6; }
 
-        .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed; }
-        .btn-primary { @apply btn bg-brand-700 text-white hover:bg-brand-800 shadow-sm; }
+        .btn { @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed; }
+        .btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-sm shadow-brand-600/25; }
         .btn-secondary { @apply btn bg-white text-slate-700 border border-slate-300 hover:bg-slate-50; }
         .btn-danger { @apply btn bg-white text-red-700 border border-red-200 hover:bg-red-50; }
         .btn-sm { @apply px-3 py-1.5 text-xs rounded-lg; }
 
-        .field { @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-600/15; }
+        .field { @apply w-full rounded-2xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15; }
         .field-sm { @apply rounded-lg px-2.5 py-1.5; }
         .label { @apply block text-sm font-medium text-slate-700 mb-1.5; }
 
@@ -49,6 +49,11 @@
         .table tbody td { @apply px-4 py-3.5 align-middle; }
         .table tbody tr { @apply border-b border-slate-100 last:border-0 hover:bg-slate-50/60; }
         .table .empty { @apply px-4 py-12 text-center text-slate-500; }
+
+
+        .tile { @apply grid place-items-center rounded-2xl bg-white text-brand-600 shadow-card ring-1 ring-slate-200/60 transition group-hover:-translate-y-0.5 group-hover:text-brand-700; }
+        .chip { @apply inline-flex shrink-0 items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-brand-300 hover:text-brand-700; }
+        .chip-on { @apply border-brand-500 bg-brand-500 text-white shadow-md shadow-brand-500/25 hover:border-brand-500 hover:text-white; }
 
         .stat-label { @apply text-sm text-slate-500; }
         .stat-value { @apply mt-1.5 text-2xl font-bold tracking-tight text-slate-900; }

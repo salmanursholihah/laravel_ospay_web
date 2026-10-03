@@ -3,7 +3,7 @@
     $general = collect($errors->getMessages())
         ->only(['payment', 'role', 'product', 'user', 'data'])
         ->flatten();
-    $alert = 'mb-5 flex items-start gap-3 rounded-xl border px-4 py-3 text-sm';
+    $alert = 'mb-5 flex items-start gap-3 rounded-2xl border px-4 py-3 text-sm';
 @endphp
 
 @if (session('success'))

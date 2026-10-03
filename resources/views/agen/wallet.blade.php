@@ -2,25 +2,54 @@
 @section('title', 'Wallet')
 
 @section('content')
-<div class="grid sm:grid-cols-3 gap-4 mb-6">
-    <div class="card p-5">
-        <div class="text-sm text-slate-500">Saldo tersedia</div>
-        <div class="text-2xl font-bold mt-1">Rp {{ number_format($wallet->available_balance, 0, ',', '.') }}</div>
+{{-- Kartu saldo utama + tombol Topup, seperti layar Wallet Saya di mobile --}}
+<section class="relative mb-4 overflow-hidden rounded-3xl bg-brand-500 p-6 text-white shadow-lg shadow-brand-500/25 sm:p-8">
+    <div class="pointer-events-none absolute -right-12 -top-12 size-44 rounded-full bg-white/10"></div>
+    <div class="relative flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <div class="text-sm text-blue-100">Saldo tersedia</div>
+            <div class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Rp {{ number_format($wallet->available_balance, 0, ',', '.') }}</div>
+        </div>
+        <a href="{{ route('agen.deposits.create') }}" class="btn bg-white text-brand-700 hover:bg-blue-50 px-5 py-3">
+            @include('partials.icon', ['name' => 'download', 'class' => 'size-5']) Topup saldo
+        </a>
     </div>
-    <div class="card p-5">
-        <div class="text-sm text-slate-500">Total saldo</div>
-        <div class="text-2xl font-bold mt-1">Rp {{ number_format($wallet->balance, 0, ',', '.') }}</div>
+</section>
+
+<div class="mb-8 grid grid-cols-2 gap-3">
+    <div class="card card-pad">
+        <div class="stat-label">Total saldo</div>
+        <div class="stat-value text-xl sm:text-2xl">Rp {{ number_format($wallet->balance, 0, ',', '.') }}</div>
     </div>
-    <div class="card p-5">
-        <div class="text-sm text-slate-500">Ditahan (transaksi pending)</div>
-        <div class="text-2xl font-bold mt-1">Rp {{ number_format($wallet->held_balance, 0, ',', '.') }}</div>
+    <div class="card card-pad">
+        <div class="stat-label">Saldo ditahan</div>
+        <div class="stat-value text-xl sm:text-2xl">Rp {{ number_format($wallet->held_balance, 0, ',', '.') }}</div>
+        <div class="mt-1 text-xs text-slate-400">Transaksi pending</div>
     </div>
 </div>
 
-<a href="{{ route('agen.deposits.create') }}" class="btn-primary mb-6">Top up saldo</a>
+<h2 class="mb-3 text-lg font-bold tracking-tight text-slate-900">Mutasi saldo</h2>
 
-<h2 class="font-semibold mb-3">Mutasi saldo</h2>
-<div class="table-wrap">
+{{-- Layar kecil: kartu baris seperti riwayat. Layar lebar: tabel lengkap dipertahankan. --}}
+<div class="grid gap-3 lg:hidden">
+    @forelse ($ledger as $l)
+        <div class="card flex items-center gap-4 p-4">
+            <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2">@include('partials.badge', ['status' => $l->type])</div>
+                <div class="mt-1 truncate text-sm text-slate-600">{{ $l->description }}</div>
+                <div class="text-xs text-slate-400">{{ $l->created_at->format('d M Y H:i') }}</div>
+            </div>
+            <div class="shrink-0 text-right">
+                <div class="font-bold text-slate-900">Rp {{ number_format($l->amount, 0, ',', '.') }}</div>
+                <div class="text-xs text-slate-400">Saldo {{ number_format($l->balance_after, 0, ',', '.') }}</div>
+            </div>
+        </div>
+    @empty
+        <div class="card p-12 text-center text-slate-500">Belum ada mutasi.</div>
+    @endforelse
+</div>
+
+<div class="table-wrap hidden lg:block">
     <table class="table">
         <thead>
             <tr><th>Waktu</th><th>Tipe</th><th class="text-right">Jumlah</th><th class="text-right">Saldo sebelum</th><th class="text-right">Saldo sesudah</th><th>Keterangan</th></tr>
